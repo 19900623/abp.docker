@@ -55,3 +55,5 @@ Copy-Item (Join-Path $slnFolder "docker/ng/*.*") $outputFolder
 ## FINALIZE ###################################################################
 
 Set-Location $outputFolder
+
+pause

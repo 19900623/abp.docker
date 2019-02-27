@@ -50,7 +50,7 @@ export class ResetPasswordDialogComponent extends AppComponentBase
       });
   }
 
-  close(result: any): void {
+  close(result?: any): void {
     this._dialogRef.close(result);
   }
 }
