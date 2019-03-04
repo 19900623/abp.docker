@@ -3,23 +3,12 @@
 $buildFolder = (Get-Item -Path "./" -Verbose).FullName
 $slnFolder = Join-Path $buildFolder "../"
 $outputFolder = Join-Path $buildFolder "outputs"
-$webHostFolder = Join-Path $slnFolder "src/Bpo.Web.Host"
 $ngFolder = Join-Path $buildFolder "../../angular"
 
 ## CLEAR ######################################################################
 
 Remove-Item $outputFolder -Force -Recurse -ErrorAction Ignore
 New-Item -Path $outputFolder -ItemType Directory
-
-## RESTORE NUGET PACKAGES #####################################################
-
-Set-Location $slnFolder
-dotnet restore
-
-## PUBLISH WEB HOST PROJECT ###################################################
-
-Set-Location $webHostFolder
-dotnet publish --output (Join-Path $outputFolder "Host")
 
 ## PUBLISH ANGULAR UI PROJECT #################################################
 
@@ -36,11 +25,6 @@ $ngConfigPath = Join-Path $outputFolder "ng/assets/appconfig.json"
 
 ## CREATE DOCKER IMAGES #######################################################
 
-# Host
-Set-Location (Join-Path $outputFolder "Host")
-
-docker rmi abp/host -f
-docker build -t abp/host .
 
 # Angular UI
 Set-Location (Join-Path $outputFolder "ng")
